@@ -15,11 +15,11 @@ use Reelpay\HttpRequest\Client;
 
 class Transactions extends Client
 {
-    const APIURL = 'https://reelpay-api.puttest.com';
+    const API_URL = 'https://reelpay-api.puttest.com';
 
     function __construct(string $appID, $appKey)
     {
-        $this->baseUrl = self::APIURL;
+        $this->baseUrl = self::API_URL;
         $this->appID   = $appID;
         $this->appKey  = $appKey;
     }
