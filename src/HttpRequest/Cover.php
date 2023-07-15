@@ -1,5 +1,12 @@
 <?php
-
+/*
+ * This file is part of the ReelPay SDK-PHP package.
+ *
+ * (c) ReelPay <support@reelpay.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace Reelpay\HttpRequest;
 
@@ -8,6 +15,11 @@ use Reelpay\Exceptions\Exception;
 
 class Cover
 {
+     /**
+     * parameter error
+     */
+    const INVALID_PARAMETER = 1;
+
     /**
      * Cover timestamp.
      *
@@ -41,7 +53,7 @@ class Cover
             $jsonStr = json_encode($body);
         }
         if ($jsonStr == false) {
-            return new Exception('json_encode fail', [], INVALID_PARAMETER);
+            return new Exception('json_encode fail', [], self::INVALID_PARAMETER);
         }
         $this->timestamp = time();
         $this->body = $jsonStr;
