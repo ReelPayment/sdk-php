@@ -6,15 +6,12 @@
     "require": {
         "php": ">=7.0.0",
         "ext-openssl": "*",
-        "ext-simplexml":"*",
-        "ext-libxml": "*",
-        "ext-json": "*",
-        "ext-bcmath": "*"
+        "ext-json": "*"
     },
     "autoload": {
         "psr-4": {
             "Reelpay\\": "src"
         }
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "main"
 }
