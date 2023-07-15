@@ -13,5 +13,5 @@
             "Reelpay\\": "src"
         }
     },
-    "minimum-stability": "main"
+    "minimum-stability": "dev"
 }
