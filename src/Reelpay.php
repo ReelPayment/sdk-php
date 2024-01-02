@@ -24,7 +24,7 @@ class Reelpay
      * @param string $appKey
      * @return Transactions
      */
-    public static function Transaction(string $appID, $appKey) : Transactions
+    public static function Transaction(string $appID, $appKey)
     {
         return new Transactions($appID, $appKey);
     }
