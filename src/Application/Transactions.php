@@ -15,7 +15,7 @@ use Reelpay\HttpRequest\Client;
 
 class Transactions extends Client
 {
-    const API_URL = 'https://pay.reelpay.com';
+    const API_URL = 'https://api.reelpay.com';
 
     function __construct(string $appID, $appKey)
     {
@@ -24,32 +24,32 @@ class Transactions extends Client
         $this->appKey  = $appKey;
     }
 
-    public function Pay(array $req): array
+    public function Pay(array $req)
     {
         return $this->request('/v1/transactions/pay', $req);
     }
 
-    public function Amount(array $req): array
+    public function Amount(array $req)
     {
         return $this->request('/v1/transactions/amount', $req);
     }
 
-    public function Transaction(array $req): array
+    public function Transaction(array $req)
     {
         return $this->request('/v1/transactions', $req);
     }
 
-    public function Close(array $req): array
+    public function Close(array $req)
     {
         return $this->request('/v1/transactions/close', $req);
     }
 
-    public function Currency(): array
+    public function Currency()
     {
         return $this->request('/v1/transactions/currency', []);
     }
 
-    public function Refund(array $req): array
+    public function Refund(array $req)
     {
         return $this->request('/v1/transactions/refund', $req);
     }
@@ -63,7 +63,7 @@ class Transactions extends Client
      * @param string $image Product image
      * @return array
      */
-    public function EntrustPay($out_trade_no, $symbol, $amount, $name, $image): array
+    public function EntrustPay($out_trade_no, $symbol, $amount, $name, $image)
     {
         $req = [
             'out_trade_no' => $out_trade_no,
