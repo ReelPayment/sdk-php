@@ -15,7 +15,7 @@ use Reelpay\HttpRequest\Client;
 
 class Transactions extends Client
 {
-    const API_URL = 'https://reelpay-api.puttest.com';
+    const API_URL = 'https://pay.reelpay.com';
 
     function __construct(string $appID, $appKey)
     {
