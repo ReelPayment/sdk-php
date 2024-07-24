@@ -12,23 +12,48 @@ require_once('src/HttpRequest/Cover.php');
 require_once('src/HttpRequest/Client.php');
 require_once('src/Application/Transactions.php');
 require_once('src/Reelpay.php');
+require_once('src/Application/Api/ApiInterface.php');
+require_once('src/Application/Api/Currency.php');
+require_once('src/Application/Api/OTCEntrustPay.php');
+require_once('src/Application/Api/EntrustPay.php');
+require_once('src/Application/Api/Pay.php');
 
 use Reelpay\Reelpay;
+use Reelpay\Application\Api\Currency;
+use Reelpay\Application\Api\OTCEntrustPay;
+use Reelpay\Application\Api\EntrustPay;
+use Reelpay\Application\Api\Pay;
 
-$transactionObj = Reelpay::Transaction('sffkuubyosc9i63w', '8b4jSWfrolOTYuUwkJbdw9IJUBeVWK3O');
+$transactionObj = Reelpay::Transaction('mklggmqkgg2qffm7','J2BDWEwF75wNHRiKi2qzQzULnxZCQEI9');
 
-var_dump($transactionObj->Currency());
+$currency = new Currency;
+$currencyList = $transactionObj->call($currency);
+if (empty($currencyList["code"]) || $currencyList["code"] != 200) {
+    print_r($currencyList["message"]);
+    return;
+}
+if (!isset($currencyList["data"]) && count($currencyList["data"]) == 0) {
+    print_r("You haven't set the currency yet��");
+  return;
+}
 
-$res = $transactionObj->Amount([
-        'currency_id'=>'7bifjodnuQvsyU7umAiveISacVbBQT7A',
-        'fiat_name' => 'USD',
-        'fiat_amount' =>'0.001'
-    ]);
+$pay = new Pay;
+$pay->currencyID = $currencyList["data"][0]["currency_id"];
+$pay->outTradeNo = "jSWfrolOTdsadcYuUwkJbdw9IJUBeV";
+$pay->fiatAmount = "100";
+$pay->fiatName = "USD";
+$pay->callbackUrl = "http://test.callbackUrl.com";
+var_dump($transactionObj->call($pay));
 
-var_dump($res);
+$entrustPay = new EntrustPay;
+$entrustPay->callbackUrl = "http://test.callbackUrl.com";
+$entrustPay->outTradeNo = "jSWfrolOTdsadcYuUwkJbdw9IJUBeV";
+$entrustPay->fiatName = "USD";
+$entrustPay->fiatAmount = "100";
+var_dump($transactionObj->call($entrustPay));
 
+$otcEntrustPay = new OTCEntrustPay;
+$otcEntrustPay->outTradeNo = "jSWfrolOTdsadcYuUwkJbdw9IJUBeV";
+$otcEntrustPay->amount = "100";
 
-
-
-
-
+var_dump($transactionObj->call($otcEntrustPay));

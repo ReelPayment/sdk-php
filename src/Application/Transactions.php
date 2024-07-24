@@ -11,67 +11,22 @@
 namespace Reelpay\Application;
 
 use Reelpay\HttpRequest\Client;
+use Reelpay\Application\API\ApiInterface;
 
 
 class Transactions extends Client
 {
-    const API_URL = 'https://api.reelpay.com';
+    public $API_URL = 'https://api.reelpay.com/api';
 
     function __construct(string $appID, $appKey)
     {
-        $this->baseUrl = self::API_URL;
+        $this->baseUrl = $this->API_URL;
         $this->appID   = $appID;
         $this->appKey  = $appKey;
     }
-
-    public function Pay(array $req)
+    
+    public function call(ApiInterface $api)
     {
-        return $this->request('/v1/transactions/pay', $req);
-    }
-
-    public function Amount(array $req)
-    {
-        return $this->request('/v1/transactions/amount', $req);
-    }
-
-    public function Transaction(array $req)
-    {
-        return $this->request('/v1/transactions', $req);
-    }
-
-    public function Close(array $req)
-    {
-        return $this->request('/v1/transactions/close', $req);
-    }
-
-    public function Currency()
-    {
-        return $this->request('/v1/transactions/currency', []);
-    }
-
-    public function Refund(array $req)
-    {
-        return $this->request('/v1/transactions/refund', $req);
-    }
-   
-     /**
-     * EntrustPay
-     * @param string $out_trade_no
-     * @param string $symbol Legal currency unit
-     * @param string $amount Product price
-     * @param string $name Product name
-     * @param string $image Product image
-     * @return array
-     */
-    public function EntrustPay($out_trade_no, $symbol, $amount, $name, $image)
-    {
-        $req = [
-            'out_trade_no' => $out_trade_no,
-            'symbol'       => $symbol,
-            'amount'       => $amount,
-            'name'         => $name,
-            'image'        => $image
-        ];
-        return $this->request('/v1/transactions/entrust', $req);
+        return $this->request($api->url(), $api->parameter());
     }
 }
